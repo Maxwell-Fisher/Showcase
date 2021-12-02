@@ -5,6 +5,7 @@ setLocal enableDelayedExpansion
 mode 64,21
 chcp 65001
 echo !esc![?25l %= Makes the cursor invisible =%
+set file=%0
 set inputArray=aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüý
 echo off
 mode 64,21
@@ -43,12 +44,15 @@ ping 127.0.0.1 -n 3 >nul
 mode 120,45
 mode 120,45
 
-For /F "UseBackQ Delims==" %%A In (%0) Do Set "memory=%%A"
+for /F "UseBackQ delims==" %%A in (%0) do set "memory=%%A"
 
 echo.
 ::echo test
 ::echo %0
 echo !memory!
+
+call :saveMemory
+::echo !memory! >> %0
 
 :a
 call :getinput
@@ -67,5 +71,11 @@ set /a level=level-1
 set input=!inputArray:~%level%,1!
 exit /b
 
-:memory
-010101010101010101
+
+:saveMemory
+echo. >> !file!
+<nul set /p=!memory!>> !file!
+exit /b
+
+:memory %= The numbers below this line are used to store settings, such as the colour scheme =%
+01010101
