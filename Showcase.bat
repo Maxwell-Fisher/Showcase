@@ -50,14 +50,7 @@ mode 120,45
 
 :a
 call :getinput
-if "!input!" == "l" (
-	if "!memory:~0,1!" == "0" (
-		set "memory=1!memory:~1,63!"
-	) else if "!memory:~0,1!" == "1" (
-		set "memory=0!memory:~1,63!"
-	)
-call :saveMemory
-)
+if "!input!" == "l" call :toggleLogoVisibility
 cls
 echo User input: !esc![48;5;255m!esc![38;5;232m!input!!esc![0m
 echo Memory: !memory!
@@ -80,6 +73,15 @@ exit /b
 :saveMemory
 echo. >> !file!
 <nul set /p=!memory!>> !file!
+exit /b
+
+:toggleLogoVisibility
+	if "!memory:~0,1!" == "0" (
+		set "memory=1!memory:~1,63!"
+	) else if "!memory:~0,1!" == "1" (
+		set "memory=0!memory:~1,63!"
+	)
+call :saveMemory
 exit /b
 
 :memory %= The numbers below this line are used to store settings, such as the colour scheme =%
