@@ -9,6 +9,7 @@ set file=%0
 set inputArray=aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüý
 echo off
 mode 64,21
+for /F "UseBackQ delims==" %%A in (%0) do set "memory=%%A"
 
 set red=%ESC%[91m%ESC%[41m  %ESC%[0m
 set yellow=%ESC%[93m%ESC%[43m  %ESC%[0m
@@ -19,6 +20,7 @@ set magenta=%ESC%[95m%ESC%[45m  %ESC%[0m
 set black=%ESC%[30m%ESC%[40m  %ESC%[0m
 set white=%ESC%[90m%ESC%[47m  %ESC%[0m
 
+if "!memory:~0,1!" == "0" goto skipLogo
 echo %red%%red%%red%%red%%yellow%%yellow%%yellow%%yellow%%green%%green%%green%%green%%blue%%blue%%blue%%blue%%cyan%%cyan%%cyan%%cyan%%magenta%%magenta%%magenta%%magenta%%black%%black%%black%%black%%white%%white%%white%%white%
 echo %red%%red%                                                        %white%%white%
 echo %red%%red%             %ESC%[96m'c;.,d0x,                                  %white%%white%
@@ -40,23 +42,27 @@ echo %red%%red%                                       %ESC%[91mM%ESC%[93ma%ESC%[
 echo %red%%red%%ESC%[90m                                                        %white%%white%
 echo %red%%red%%red%%red%%yellow%%yellow%%yellow%%yellow%%green%%green%%green%%green%%blue%%blue%%blue%%blue%%cyan%%cyan%%cyan%%cyan%%magenta%%magenta%%magenta%%magenta%%black%%black%%black%%black%%white%%white%%white%%white%
 ping 127.0.0.1 -n 3 >nul
+:skipLogo
 
 mode 120,45
 mode 120,45
 
-for /F "UseBackQ delims==" %%A in (%0) do set "memory=%%A"
-
-echo.
-::echo test
-::echo %0
-echo !memory!
-
-call :saveMemory
-::echo !memory! >> %0
 
 :a
 call :getinput
-echo !esc![0;0H!esc![48;5;255m!esc![38;5;232m!input!!esc![0m
+if "!input!" == "l" (
+	if "!memory:~0,1!" == "0" (
+		set "memory=1!memory:~1,63!"
+	) else if "!memory:~0,1!" == "1" (
+		set "memory=0!memory:~1,63!"
+	)
+call :saveMemory
+)
+cls
+echo User input: !esc![48;5;255m!esc![38;5;232m!input!!esc![0m
+echo Memory: !memory!
+if "!memory:~0,1!" == "0" echo Startup logo: hidden
+if "!memory:~0,1!" == "1" echo Startup logo: shown
 goto a
 
 pause
@@ -71,11 +77,10 @@ set /a level=level-1
 set input=!inputArray:~%level%,1!
 exit /b
 
-
 :saveMemory
 echo. >> !file!
 <nul set /p=!memory!>> !file!
 exit /b
 
 :memory %= The numbers below this line are used to store settings, such as the colour scheme =%
-01010101
+1
