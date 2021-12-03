@@ -127,7 +127,7 @@ if "!menuPosition!" == "2" echo !esc![4;2H!cursor!
 if "!menuPosition!" == "3" echo !esc![5;2H!cursor!
 if "!menuPosition!" == "4" echo !esc![6;2H!cursor!
 if "!menuPosition!" == "5" echo !esc![7;2H!cursor!
-if "!menuPosition!" == "6" echo !esc![12;2H!cursor!
+if "!menuPosition!" == "6" echo !esc![20;2H!cursor!
 if "!menuPosition!" == "7" echo !esc![2;55H!cursor!
 
 echo !esc![2;10HScripts:
@@ -136,34 +136,41 @@ echo !esc![4;4H[Rickroll          ]
 echo !esc![5;4H[Memory corruption ]
 echo !esc![6;4H[Square Game       ]
 echo !esc![7;4H[Physics Simulator ]
-echo !esc![12;4H[Settings          ]
+echo | set /p=!esc![20;4H[Settings          ]
 
 call :setColour
 echo !esc![2;57H!esc![38;5;252m!esc![48;5;88m[Exit]
 call :setColour
-echo !esc![20;4HPress [D] to go to the details/settings page
+::echo !esc![20;4HPress [D] to go to the details/settings page
 exit /b
 
 :renderDetails
 call :setColour
 
-::if "!menuPosition!" == "2" echo !esc![3;2H!cursor!
+if "!menuPosition!" == "1" echo !esc![2;2H!cursor!
+if "!menuPosition!" == "2" echo !esc![3;2H!cursor!
+if "!menuPosition!" == "3" echo !esc![4;2H!cursor!
+if "!menuPosition!" == "4" echo !esc![2;55H!cursor!
 
-if "!memory:~0,1!" == "0" echo !esc![12;4HStartup logo: hidden
-if "!memory:~0,1!" == "1" echo !esc![12;4HStartup logo: shown
-if "!memory:~1,1!" == "0" echo !esc![13;4HColour scheme: dark
-if "!memory:~1,1!" == "1" echo !esc![13;4HColour scheme: light
-if "!memory:~1,1!" == "2" echo !esc![13;4HColour scheme: matrix
-if "!memory:~1,1!" == "3" echo !esc![13;4HColour scheme: commodore
+echo !esc![2;4H[Toggle start logo ]
+echo !esc![3;4H[Change colour     ]
+echo !esc![4;4H[Main menu         ]
+
+if "!memory:~0,1!" == "0" echo !esc![16;4HStartup logo: hidden
+if "!memory:~0,1!" == "1" echo !esc![16;4HStartup logo: shown
+if "!memory:~1,1!" == "0" echo !esc![17;4HColour scheme: dark
+if "!memory:~1,1!" == "1" echo !esc![17;4HColour scheme: light
+if "!memory:~1,1!" == "2" echo !esc![17;4HColour scheme: matrix
+if "!memory:~1,1!" == "3" echo !esc![17;4HColour scheme: commodore
 call :setColour
 echo !esc![2;57H!esc![38;5;252m!esc![48;5;88m[Exit]
 call :setColour
-echo !esc![14;4HMemory: [!memory!]
-echo !esc![15;4HInput: [!input!]
-echo !esc![16;4HCurrent item: [!menuPosition!]
-echo !esc![20;4HPress [M] to go to the main menu
-echo !esc![19;4HPress [C] to toggle the colour scheme
-echo !esc![18;4HPress [L] to toggle the loading logo
+echo !esc![18;4HMemory: [!memory!]
+echo !esc![19;4HInput: [!input!]
+echo !esc![20;4HCurrent item: [!menuPosition!]
+::echo !esc![20;4HPress [M] to go to the main menu
+::echo !esc![19;4HPress [C] to toggle the colour scheme
+::echo !esc![18;4HPress [L] to toggle the loading logo
 exit /b
 
 :setColour
