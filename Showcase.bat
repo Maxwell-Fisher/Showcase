@@ -43,41 +43,33 @@ echo %red%%red%%ESC%[90m                                                        
 echo %red%%red%%red%%red%%yellow%%yellow%%yellow%%yellow%%green%%green%%green%%green%%blue%%blue%%blue%%blue%%cyan%%cyan%%cyan%%cyan%%magenta%%magenta%%magenta%%magenta%%black%%black%%black%%black%%white%%white%%white%%white%
 ping 127.0.0.1 -n 3 >nul
 :skipLogo
-
-::mode 120,45
-::mode 120,45
-cls
-
-:a
-::if "!memory:~1,1!" == "0" echo !esc![38;5;m255%ESC%[48;5;232m
-::if "!memory:~1,1!" == "1" echo !esc![38;5;232m%ESC%[48;5;255m
 if "!memory:~1,1!" == "0" color 0F
 if "!memory:~1,1!" == "1" color F0
-echo !esc![2;10HScripts:
-echo !esc![3;4H[Tetris            ]
-echo !esc![4;4H[Rickroll          ]
-echo !esc![5;4H[Memory corruption ]
-echo !esc![6;4H[Square Game       ]
-echo !esc![7;4H[Physics Simulator ]
+cls
 
-echo !esc![2;57H[Exit]
+%= ################################################################################################### =%
 
+:mainMenu
+call :renderMainMenu
 call :getinput
 cls
 echo !esc![10;1H
+if "!input!" == "d" cls && goto detailsMenu
+goto mainMenu
+
+:detailsMenu
+call :renderDetails
+call :getinput
+cls
 if "!input!" == "l" call :toggleLogoVisibility
 if "!input!" == "c" call :toggleColour
+if "!memory:~1,1!" == "0" color 0F
+if "!memory:~1,1!" == "1" color F0
+if "!input!" == "m" cls && goto mainMenu
+goto detailsMenu
 
-echo User input: !esc![48;5;255m!esc![38;5;232m!input!!esc![0m
-echo Memory: !memory!
-if "!memory:~0,1!" == "0" echo Startup logo: hidden
-if "!memory:~0,1!" == "1" echo Startup logo: shown
-title !memory!
-goto a
 
-pause
-exit
-
+%= ################################################################################################### =% pause && exit
 
 
 :getinput
@@ -110,6 +102,27 @@ exit /b
 call :saveMemory
 exit /b
 
+:renderMainMenu
+echo !esc![2;10HScripts:
+echo !esc![3;4H[Tetris            ]
+echo !esc![4;4H[Rickroll          ]
+echo !esc![5;4H[Memory corruption ]
+echo !esc![6;4H[Square Game       ]
+echo !esc![7;4H[Physics Simulator ]
+
+echo !esc![2;57H[Exit]
+exit /b
+
+:renderDetails
+if "!memory:~0,1!" == "0" echo !esc![1;1HStartup logo: hidden
+if "!memory:~0,1!" == "1" echo !esc![1;1HStartup logo: shown
+if "!memory:~1,1!" == "0" echo !esc![2;1HColour scheme: dark
+if "!memory:~1,1!" == "1" echo !esc![2;1HColour scheme: light
+echo !esc![3;1HMemory: [!memory!]
+echo !esc![4;1HInput: [!input!]
+exit /b
+
 :memory %= The numbers below this line are used to store settings, such as the colour scheme =%
-11 
-01
+00 
+01 
+00
