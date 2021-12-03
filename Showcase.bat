@@ -65,7 +65,7 @@ goto mainMenu
 
 :detailsMenuInit
 set menuPosition=1
-set menuItems=3
+set menuItems=4
 :detailsMenu
 title Showcase - @Maxwellcrafter (Details)
 call :renderDetails
@@ -134,15 +134,18 @@ exit /b
 
 :renderDetails
 call :setColour
-if "!memory:~0,1!" == "0" echo !esc![1;1HStartup logo: hidden
-if "!memory:~0,1!" == "1" echo !esc![1;1HStartup logo: shown
-if "!memory:~1,1!" == "0" echo !esc![2;1HColour scheme: dark
-if "!memory:~1,1!" == "1" echo !esc![2;1HColour scheme: light
-if "!memory:~1,1!" == "2" echo !esc![2;1HColour scheme: matrix
-if "!memory:~1,1!" == "3" echo !esc![2;1HColour scheme: commodore
-echo !esc![3;1HMemory: [!memory!]
-echo !esc![4;1HInput: [!input!]
-echo !esc![5;1HCurrent item: [!menuPosition!]
+if "!memory:~0,1!" == "0" echo !esc![2;4HStartup logo: hidden
+if "!memory:~0,1!" == "1" echo !esc![2;4HStartup logo: shown
+if "!memory:~1,1!" == "0" echo !esc![3;4HColour scheme: dark
+if "!memory:~1,1!" == "1" echo !esc![3;4HColour scheme: light
+if "!memory:~1,1!" == "2" echo !esc![4;4HColour scheme: matrix
+if "!memory:~1,1!" == "3" echo !esc![4;4HColour scheme: commodore
+call :setColour
+echo !esc![2;57H!esc![38;5;252m!esc![48;5;88m[Exit]
+call :setColour
+echo !esc![5;4HMemory: [!memory!]
+echo !esc![6;4HInput: [!input!]
+echo !esc![7;4HCurrent item: [!menuPosition!]
 echo !esc![20;4HPress [M] to go to the main menu
 echo !esc![19;4HPress [C] to toggle the colour scheme
 echo !esc![18;4HPress [L] to toggle the loading logo
