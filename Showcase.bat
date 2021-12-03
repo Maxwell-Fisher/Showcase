@@ -98,6 +98,10 @@ exit /b
 	if "!memory:~1,1!" == "0" (
 		set "memory=!memory:~0,1!1!memory:~2,63!"
 	) else if "!memory:~1,1!" == "1" (
+		set "memory=!memory:~0,1!2!memory:~2,63!"
+	) else if "!memory:~1,1!" == "2" (
+		set "memory=!memory:~0,1!3!memory:~2,63!"
+	) else if "!memory:~1,1!" == "3" (
 		set "memory=!memory:~0,1!0!memory:~2,63!"
 	)
 call :setColour
@@ -123,6 +127,8 @@ if "!memory:~0,1!" == "0" echo !esc![1;1HStartup logo: hidden
 if "!memory:~0,1!" == "1" echo !esc![1;1HStartup logo: shown
 if "!memory:~1,1!" == "0" echo !esc![2;1HColour scheme: dark
 if "!memory:~1,1!" == "1" echo !esc![2;1HColour scheme: light
+if "!memory:~1,1!" == "2" echo !esc![2;1HColour scheme: matrix
+if "!memory:~1,1!" == "3" echo !esc![2;1HColour scheme: commodore
 echo !esc![3;1HMemory: [!memory!]
 echo !esc![4;1HInput: [!input!]
 echo !esc![20;4HPress [M] to go to the main menu
@@ -131,13 +137,13 @@ echo !esc![18;4HPress [L] to toggle the loading logo
 exit /b
 
 :setColour
-::if "!memory:~1,1!" == "0" color 0F
-::if "!memory:~1,1!" == "1" color F0
-if "!memory:~1,1!" == "0" echo !esc![38;5;235m!esc![48;5;15m
-if "!memory:~1,1!" == "1" echo !esc![38;5;15m!esc![48;5;235m
+if "!memory:~1,1!" == "0" echo !esc![38;5;15m!esc![48;5;235m
+if "!memory:~1,1!" == "1" echo !esc![38;5;235m!esc![48;5;15m
+if "!memory:~1,1!" == "2" echo !esc![38;5;46m!esc![48;5;235m
+::if "!memory:~1,1!" == "3" echo !esc![38;5;14m!esc![48;5;69m
+::if "!memory:~1,1!" == "3" echo !esc![38;2;108;94;181m!esc![48;2;53;40;121m
+if "!memory:~1,1!" == "3" echo !esc![38;5;159m!esc![48;2;53;40;121m
 exit /b
 
 :memory %= The numbers below this line are used to store settings, such as the colour scheme =%
-11 
-10 
-11
+10
