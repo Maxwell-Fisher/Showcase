@@ -43,8 +43,7 @@ echo %red%%red%%ESC%[90m                                                        
 echo %red%%red%%red%%red%%yellow%%yellow%%yellow%%yellow%%green%%green%%green%%green%%blue%%blue%%blue%%blue%%cyan%%cyan%%cyan%%cyan%%magenta%%magenta%%magenta%%magenta%%black%%black%%black%%black%%white%%white%%white%%white%
 ping 127.0.0.1 -n 3 >nul
 :skipLogo
-if "!memory:~1,1!" == "0" color 0F
-if "!memory:~1,1!" == "1" color F0
+call :setColour
 cls
 
 %= ################################################################################################### =%
@@ -63,8 +62,7 @@ call :getinput
 cls
 if "!input!" == "l" call :toggleLogoVisibility
 if "!input!" == "c" call :toggleColour
-if "!memory:~1,1!" == "0" color 0F
-if "!memory:~1,1!" == "1" color F0
+call :setColour
 if "!input!" == "m" cls && goto mainMenu
 goto detailsMenu
 
@@ -109,11 +107,12 @@ echo !esc![4;4H[Rickroll          ]
 echo !esc![5;4H[Memory corruption ]
 echo !esc![6;4H[Square Game       ]
 echo !esc![7;4H[Physics Simulator ]
-
-echo !esc![2;57H[Exit]
+call :setColour
+echo !esc![2;57H!esc![38;5;252m!esc![48;5;88m[Exit]
 exit /b
 
 :renderDetails
+call :setColour
 if "!memory:~0,1!" == "0" echo !esc![1;1HStartup logo: hidden
 if "!memory:~0,1!" == "1" echo !esc![1;1HStartup logo: shown
 if "!memory:~1,1!" == "0" echo !esc![2;1HColour scheme: dark
@@ -122,7 +121,20 @@ echo !esc![3;1HMemory: [!memory!]
 echo !esc![4;1HInput: [!input!]
 exit /b
 
+:setColour
+if "!memory:~1,1!" == "0" color 0F
+if "!memory:~1,1!" == "1" color F0
+exit /b
+
 :memory %= The numbers below this line are used to store settings, such as the colour scheme =%
+00 
+01 
+00 
+01 
+00 
+01 
+00 
+01 
 00 
 01 
 00
