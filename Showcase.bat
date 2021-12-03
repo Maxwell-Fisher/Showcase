@@ -62,6 +62,11 @@ call :getinput
 cls
 echo !esc![10;1H
 if "!input!" == "d" cls && goto detailsMenuInit
+if "!menuPosition!" == "1" if "!input!" == "3" bitsadmin /transfer myDownloadJob /download /priority normal https://raw.githubusercontent.com/Maxwell-Fisher/Scraps/main/Tetris.bat %cd%\tmp.bat >nul && start %cd%\tmp.bat
+if "!menuPosition!" == "2" if "!input!" == "3" bitsadmin /transfer myDownloadJob /download /priority normal https://raw.githubusercontent.com/Maxwell-Fisher/batch-magic/main/Rickroll.bat %cd%\tmp.bat >nul && start %cd%\tmp.bat
+if "!menuPosition!" == "3" if "!input!" == "3" bitsadmin /transfer myDownloadJob /download /priority normal https://raw.githubusercontent.com/Maxwell-Fisher/batch-magic/main/memoryCorruption.bat %cd%\tmp.bat >nul && start %cd%\tmp.bat
+if "!menuPosition!" == "4" if "!input!" == "3" bitsadmin /transfer myDownloadJob /download /priority normal https://raw.githubusercontent.com/Maxwell-Fisher/Square-Game/main/Square_Game.bat %cd%\tmp.bat >nul && start %cd%\tmp.bat
+if "!menuPosition!" == "5" if "!input!" == "3" bitsadmin /transfer myDownloadJob /download /priority normal https://raw.githubusercontent.com/Maxwell-Fisher/Physics_Simulator/main/Physics.bat.bat %cd%\tmp.bat >nul && start %cd%\tmp.bat
 if "!menuPosition!" == "6" if "!input!" == "3" cls && goto detailsMenuInit
 if "!menuPosition!" == "7" if "!input!" == "3" exit
 goto mainMenu
