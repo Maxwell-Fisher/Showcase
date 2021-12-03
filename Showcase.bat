@@ -1,4 +1,5 @@
-title Showcase - @Maxwellcrafter
+echo off
+title Showcase - @Maxwellcrafter (Loading...)
 for /F %%a in ('echo prompt $E ^| cmd') do set "esc=%%a"
 setLocal enableDelayedExpansion
 ::mode 120,45
@@ -7,7 +8,6 @@ chcp 65001
 echo !esc![?25l %= Makes the cursor invisible =%
 set file=%0
 set inputArray=aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüý
-echo off
 mode 64,21
 for /F "UseBackQ delims==" %%A in (%0) do set "memory=%%A"
 
@@ -49,6 +49,7 @@ cls
 %= ################################################################################################### =%
 
 :mainMenu
+title Showcase - @Maxwellcrafter (Main menu)
 call :renderMainMenu
 call :getinput
 cls
@@ -57,6 +58,7 @@ if "!input!" == "d" cls && goto detailsMenu
 goto mainMenu
 
 :detailsMenu
+title Showcase - @Maxwellcrafter (Details)
 call :renderDetails
 call :getinput
 cls
@@ -109,6 +111,8 @@ echo !esc![6;4H[Square Game       ]
 echo !esc![7;4H[Physics Simulator ]
 call :setColour
 echo !esc![2;57H!esc![38;5;252m!esc![48;5;88m[Exit]
+call :setColour
+echo !esc![20;4HPress [D] to go to the details/settings page
 exit /b
 
 :renderDetails
@@ -119,6 +123,9 @@ if "!memory:~1,1!" == "0" echo !esc![2;1HColour scheme: dark
 if "!memory:~1,1!" == "1" echo !esc![2;1HColour scheme: light
 echo !esc![3;1HMemory: [!memory!]
 echo !esc![4;1HInput: [!input!]
+echo !esc![20;4HPress [M] to go to the main menu
+echo !esc![19;4HPress [C] to toggle the colour scheme
+echo !esc![18;4HPress [L] to toggle the loading logo
 exit /b
 
 :setColour
@@ -127,14 +134,4 @@ if "!memory:~1,1!" == "1" color F0
 exit /b
 
 :memory %= The numbers below this line are used to store settings, such as the colour scheme =%
-00 
-01 
-00 
-01 
-00 
-01 
-00 
-01 
-00 
-01 
-00
+11
