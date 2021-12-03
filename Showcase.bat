@@ -62,6 +62,8 @@ call :getinput
 cls
 echo !esc![10;1H
 if "!input!" == "d" cls && goto detailsMenuInit
+if "!menuPosition!" == "6" if "!input!" == "3" cls && goto detailsMenuInit
+if "!menuPosition!" == "7" if "!input!" == "3" exit
 goto mainMenu
 
 :detailsMenuInit
@@ -76,6 +78,10 @@ if "!input!" == "l" call :toggleLogoVisibility
 if "!input!" == "c" call :toggleColour
 call :setColour
 if "!input!" == "m" cls && goto mainMenuInit
+if "!menuPosition!" == "1" if "!input!" == "3" call :toggleLogoVisibility
+if "!menuPosition!" == "2" if "!input!" == "3" call :toggleColour
+if "!menuPosition!" == "3" if "!input!" == "3" cls && goto mainMenuInit
+if "!menuPosition!" == "4" if "!input!" == "3" exit
 goto detailsMenu
 
 
@@ -183,4 +189,8 @@ if "!memory:~1,1!" == "3" echo !esc![38;5;159m!esc![48;2;53;40;121m && set curso
 exit /b
 
 :memory %= The numbers below this line are used to store settings, such as the current colour scheme =%
+10 
+11 
+12 
+13 
 10
