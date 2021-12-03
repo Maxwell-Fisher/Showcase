@@ -10,6 +10,7 @@ set file=%0
 set inputArray=aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüý
 mode 64,21
 for /F "UseBackQ delims==" %%A in (%0) do set "memory=%%A"
+set colourReset=!esc![39m!esc![49m
 
 set red=!esc![91m!esc![41m  !esc![0m
 set yellow=!esc![93m!esc![43m  !esc![0m
@@ -99,6 +100,7 @@ exit /b
 	) else if "!memory:~1,1!" == "1" (
 		set "memory=!memory:~0,1!0!memory:~2,63!"
 	)
+call :setColour
 call :saveMemory
 exit /b
 
@@ -129,9 +131,13 @@ echo !esc![18;4HPress [L] to toggle the loading logo
 exit /b
 
 :setColour
-if "!memory:~1,1!" == "0" color 0F
-if "!memory:~1,1!" == "1" color F0
+::if "!memory:~1,1!" == "0" color 0F
+::if "!memory:~1,1!" == "1" color F0
+if "!memory:~1,1!" == "0" echo !esc![38;5;235m!esc![48;5;15m
+if "!memory:~1,1!" == "1" echo !esc![38;5;15m!esc![48;5;235m
 exit /b
 
 :memory %= The numbers below this line are used to store settings, such as the colour scheme =%
+11 
+10 
 11
