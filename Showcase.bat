@@ -11,6 +11,8 @@ set inputArray=aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789€
 mode 64,21
 for /F "UseBackQ delims==" %%A in (%0) do set "memory=%%A"
 set colourReset=!esc![39m!esc![49m
+set menuPosition=1
+set menuItems=1
 
 set red=!esc![91m!esc![41m  !esc![0m
 set yellow=!esc![93m!esc![43m  !esc![0m
@@ -49,15 +51,21 @@ cls
 
 %= ################################################################################################### =%
 
+:mainmenuInit
+set menuPosition=1
+set menuItems=7
 :mainMenu
 title Showcase - @Maxwellcrafter (Main menu)
 call :renderMainMenu
 call :getinput
 cls
 echo !esc![10;1H
-if "!input!" == "d" cls && goto detailsMenu
+if "!input!" == "d" cls && goto detailsMenuInit
 goto mainMenu
 
+:detailsMenuInit
+set menuPosition=1
+set menuItems=3
 :detailsMenu
 title Showcase - @Maxwellcrafter (Details)
 call :renderDetails
@@ -66,7 +74,7 @@ cls
 if "!input!" == "l" call :toggleLogoVisibility
 if "!input!" == "c" call :toggleColour
 call :setColour
-if "!input!" == "m" cls && goto mainMenu
+if "!input!" == "m" cls && goto mainMenuInit
 goto detailsMenu
 
 
@@ -78,6 +86,9 @@ choice /CS /T 1 /D !inputArray:~83,1! /c !inputArray! >nul
 set level=%errorlevel%
 set /a level=level-1
 set input=!inputArray:~%level%,1!
+if "!input!" == "1" if "!menuPosition!" GTR "1" set /a menuPosition=menuPosition-1
+if "!input!" == "2" if "!menuPosition!" LSS "!menuItems!" set /a menuPosition=menuPosition+1
+
 exit /b
 
 :saveMemory
@@ -131,6 +142,7 @@ if "!memory:~1,1!" == "2" echo !esc![2;1HColour scheme: matrix
 if "!memory:~1,1!" == "3" echo !esc![2;1HColour scheme: commodore
 echo !esc![3;1HMemory: [!memory!]
 echo !esc![4;1HInput: [!input!]
+echo !esc![5;1HCurrent item: [!menuPosition!]
 echo !esc![20;4HPress [M] to go to the main menu
 echo !esc![19;4HPress [C] to toggle the colour scheme
 echo !esc![18;4HPress [L] to toggle the loading logo
@@ -145,5 +157,5 @@ if "!memory:~1,1!" == "2" echo !esc![38;5;46m!esc![48;5;235m
 if "!memory:~1,1!" == "3" echo !esc![38;5;159m!esc![48;2;53;40;121m
 exit /b
 
-:memory %= The numbers below this line are used to store settings, such as the colour scheme =%
+:memory %= The numbers below this line are used to store settings, such as the current colour scheme =%
 10
