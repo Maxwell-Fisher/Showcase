@@ -13,6 +13,7 @@ for /F "UseBackQ delims==" %%A in (%0) do set "memory=%%A"
 set colourReset=!esc![39m!esc![49m
 set menuPosition=1
 set menuItems=1
+set cursor=^>
 
 set red=!esc![91m!esc![41m  !esc![0m
 set yellow=!esc![93m!esc![43m  !esc![0m
@@ -120,12 +121,23 @@ call :saveMemory
 exit /b
 
 :renderMainMenu
+
+if "!menuPosition!" == "1" echo !esc![3;2H!cursor!
+if "!menuPosition!" == "2" echo !esc![4;2H!cursor!
+if "!menuPosition!" == "3" echo !esc![5;2H!cursor!
+if "!menuPosition!" == "4" echo !esc![6;2H!cursor!
+if "!menuPosition!" == "5" echo !esc![7;2H!cursor!
+if "!menuPosition!" == "6" echo !esc![12;2H!cursor!
+if "!menuPosition!" == "7" echo !esc![2;55H!cursor!
+
 echo !esc![2;10HScripts:
 echo !esc![3;4H[Tetris            ]
 echo !esc![4;4H[Rickroll          ]
 echo !esc![5;4H[Memory corruption ]
 echo !esc![6;4H[Square Game       ]
 echo !esc![7;4H[Physics Simulator ]
+echo !esc![12;4H[Settings          ]
+
 call :setColour
 echo !esc![2;57H!esc![38;5;252m!esc![48;5;88m[Exit]
 call :setColour
@@ -134,6 +146,9 @@ exit /b
 
 :renderDetails
 call :setColour
+
+::if "!menuPosition!" == "2" echo !esc![3;2H!cursor!
+
 if "!memory:~0,1!" == "0" echo !esc![2;4HStartup logo: hidden
 if "!memory:~0,1!" == "1" echo !esc![2;4HStartup logo: shown
 if "!memory:~1,1!" == "0" echo !esc![3;4HColour scheme: dark
@@ -152,12 +167,12 @@ echo !esc![18;4HPress [L] to toggle the loading logo
 exit /b
 
 :setColour
-if "!memory:~1,1!" == "0" echo !esc![38;5;15m!esc![48;5;235m
-if "!memory:~1,1!" == "1" echo !esc![38;5;235m!esc![48;5;15m
-if "!memory:~1,1!" == "2" echo !esc![38;5;46m!esc![48;5;235m
+if "!memory:~1,1!" == "0" echo !esc![38;5;15m!esc![48;5;235m && set cursor=!esc![38;5;15m!esc![48;5;235m^>
+if "!memory:~1,1!" == "1" echo !esc![38;5;235m!esc![48;5;15m && set cursor=!esc![38;5;235m!esc![48;5;15m^>
+if "!memory:~1,1!" == "2" echo !esc![38;5;46m!esc![48;5;235m && set cursor=!esc![38;5;46m!esc![48;5;235m^>
+if "!memory:~1,1!" == "3" echo !esc![38;5;159m!esc![48;2;53;40;121m && set cursor=!esc![38;5;159m!esc![48;2;53;40;121m^>
 ::if "!memory:~1,1!" == "3" echo !esc![38;5;14m!esc![48;5;69m
 ::if "!memory:~1,1!" == "3" echo !esc![38;2;108;94;181m!esc![48;2;53;40;121m
-if "!memory:~1,1!" == "3" echo !esc![38;5;159m!esc![48;2;53;40;121m
 exit /b
 
 :memory %= The numbers below this line are used to store settings, such as the current colour scheme =%
