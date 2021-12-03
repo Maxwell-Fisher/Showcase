@@ -44,18 +44,35 @@ echo %red%%red%%red%%red%%yellow%%yellow%%yellow%%yellow%%green%%green%%green%%g
 ping 127.0.0.1 -n 3 >nul
 :skipLogo
 
-mode 120,45
-mode 120,45
-
+::mode 120,45
+::mode 120,45
+cls
 
 :a
+::if "!memory:~1,1!" == "0" echo !esc![38;5;m255%ESC%[48;5;232m
+::if "!memory:~1,1!" == "1" echo !esc![38;5;232m%ESC%[48;5;255m
+if "!memory:~1,1!" == "0" color 0F
+if "!memory:~1,1!" == "1" color F0
+echo !esc![2;10HScripts:
+echo !esc![3;4H[Tetris            ]
+echo !esc![4;4H[Rickroll          ]
+echo !esc![5;4H[Memory corruption ]
+echo !esc![6;4H[Square Game       ]
+echo !esc![7;4H[Physics Simulator ]
+
+echo !esc![2;57H[Exit]
+
 call :getinput
-if "!input!" == "l" call :toggleLogoVisibility
 cls
+echo !esc![10;1H
+if "!input!" == "l" call :toggleLogoVisibility
+if "!input!" == "c" call :toggleColour
+
 echo User input: !esc![48;5;255m!esc![38;5;232m!input!!esc![0m
 echo Memory: !memory!
 if "!memory:~0,1!" == "0" echo Startup logo: hidden
 if "!memory:~0,1!" == "1" echo Startup logo: shown
+title !memory!
 goto a
 
 pause
@@ -84,5 +101,15 @@ exit /b
 call :saveMemory
 exit /b
 
+:toggleColour
+	if "!memory:~1,1!" == "0" (
+		set "memory=!memory:~0,1!1!memory:~2,63!"
+	) else if "!memory:~1,1!" == "1" (
+		set "memory=!memory:~0,1!0!memory:~2,63!"
+	)
+call :saveMemory
+exit /b
+
 :memory %= The numbers below this line are used to store settings, such as the colour scheme =%
-1
+11 
+01
