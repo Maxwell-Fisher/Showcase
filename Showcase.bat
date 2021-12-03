@@ -11,35 +11,35 @@ set inputArray=aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789€
 mode 64,21
 for /F "UseBackQ delims==" %%A in (%0) do set "memory=%%A"
 
-set red=%ESC%[91m%ESC%[41m  %ESC%[0m
-set yellow=%ESC%[93m%ESC%[43m  %ESC%[0m
-set green=%ESC%[92m%ESC%[42m  %ESC%[0m
-set blue=%ESC%[94m%ESC%[44m  %ESC%[0m
-set cyan=%ESC%[96m%ESC%[46m  %ESC%[0m
-set magenta=%ESC%[95m%ESC%[45m  %ESC%[0m
-set black=%ESC%[30m%ESC%[40m  %ESC%[0m
-set white=%ESC%[90m%ESC%[47m  %ESC%[0m
+set red=!esc![91m!esc![41m  !esc![0m
+set yellow=!esc![93m!esc![43m  !esc![0m
+set green=!esc![92m!esc![42m  !esc![0m
+set blue=!esc![94m!esc![44m  !esc![0m
+set cyan=!esc![96m!esc![46m  !esc![0m
+set magenta=!esc![95m!esc![45m  !esc![0m
+set black=!esc![30m!esc![40m  !esc![0m
+set white=!esc![90m!esc![47m  !esc![0m
 
 if "!memory:~0,1!" == "0" goto skipLogo
 echo %red%%red%%red%%red%%yellow%%yellow%%yellow%%yellow%%green%%green%%green%%green%%blue%%blue%%blue%%blue%%cyan%%cyan%%cyan%%cyan%%magenta%%magenta%%magenta%%magenta%%black%%black%%black%%black%%white%%white%%white%%white%
 echo %red%%red%                                                        %white%%white%
-echo %red%%red%             %ESC%[96m'c;.,d0x,                                  %white%%white%
-echo %red%%red%          %ESC%[96m..,0MWXK0xl'                                  %white%%white%
-echo %red%%red%         %ESC%[96mcKKXKko:'.      %ESC%[94m.;xkl.  %ESC%[95m'xkl.                  %white%%white%
-echo %red%%red%       %ESC%[96m.,OWKl.           %ESC%[94m.oNW0,  %ESC%[95mcNMWd.                 %white%%white%
-echo %red%%red%      %ESC%[96m,ONWx.              %ESC%[94m.',.   %ESC%[95m.xWMNl                 %white%%white%
-echo %red%%red%      %ESC%[96m.kMk.                       %ESC%[95m.OWMX:                %white%%white%
-echo %red%%red%     %ESC%[96m.oXWl                         %ESC%[95m,0MM0,               %white%%white%
-echo %red%%red%     %ESC%[96m,OWWl                          %ESC%[95m:XMMO.              %white%%white%
-echo %red%%red%      %ESC%[96m'0Wk.                          %ESC%[95mlNMWx.             %white%%white%
-echo %red%%red%      %ESC%[96mcXMWd.                         %ESC%[95m.dWMNo             %white%%white%
-echo %red%%red%      %ESC%[96m.,c0Wk;            %ESC%[94m.;kOo.       %ESC%[95m.kMMX:            %white%%white%
-echo %red%%red%         %ESC%[96mdMMNkc,.        %ESC%[94m.lXNO'        %ESC%[95m'kNNc            %white%%white%
-echo %red%%red%         %ESC%[96m.::l0MWXOdc,.     %ESC%[94m.'.          %ESC%[95m.'.             %white%%white%
-echo %red%%red%             %ESC%[96m,xo:ckNK:                                  %white%%white%
-echo %red%%red%                    %ESC%[96m'.                                  %white%%white%
-echo %red%%red%                                       %ESC%[91mM%ESC%[93ma%ESC%[92mx%ESC%[94mw%ESC%[94me%ESC%[96ml%ESC%[95ml %ESC%[91mF%ESC%[92mi%ESC%[94ms%ESC%[91mh%ESC%[92me%ESC%[94mr   %white%%white%
-echo %red%%red%%ESC%[90m                                                        %white%%white%
+echo %red%%red%             !esc![96m'c;.,d0x,                                  %white%%white%
+echo %red%%red%          !esc![96m..,0MWXK0xl'                                  %white%%white%
+echo %red%%red%         !esc![96mcKKXKko:'.      !esc![94m.;xkl.  !esc![95m'xkl.                  %white%%white%
+echo %red%%red%       !esc![96m.,OWKl.           !esc![94m.oNW0,  !esc![95mcNMWd.                 %white%%white%
+echo %red%%red%      !esc![96m,ONWx.              !esc![94m.',.   !esc![95m.xWMNl                 %white%%white%
+echo %red%%red%      !esc![96m.kMk.                       !esc![95m.OWMX:                %white%%white%
+echo %red%%red%     !esc![96m.oXWl                         !esc![95m,0MM0,               %white%%white%
+echo %red%%red%     !esc![96m,OWWl                          !esc![95m:XMMO.              %white%%white%
+echo %red%%red%      !esc![96m'0Wk.                          !esc![95mlNMWx.             %white%%white%
+echo %red%%red%      !esc![96mcXMWd.                         !esc![95m.dWMNo             %white%%white%
+echo %red%%red%      !esc![96m.,c0Wk;            !esc![94m.;kOo.       !esc![95m.kMMX:            %white%%white%
+echo %red%%red%         !esc![96mdMMNkc,.        !esc![94m.lXNO'        !esc![95m'kNNc            %white%%white%
+echo %red%%red%         !esc![96m.::l0MWXOdc,.     !esc![94m.'.          !esc![95m.'.             %white%%white%
+echo %red%%red%             !esc![96m,xo:ckNK:                                  %white%%white%
+echo %red%%red%                    !esc![96m'.                                  %white%%white%
+echo %red%%red%                                       !esc![91mM!esc![93ma!esc![92mx!esc![94mw!esc![94me!esc![96ml!esc![95ml !esc![91mF!esc![92mi!esc![94ms!esc![91mh!esc![92me!esc![94mr   %white%%white%
+echo %red%%red%!esc![90m                                                        %white%%white%
 echo %red%%red%%red%%red%%yellow%%yellow%%yellow%%yellow%%green%%green%%green%%green%%blue%%blue%%blue%%blue%%cyan%%cyan%%cyan%%cyan%%magenta%%magenta%%magenta%%magenta%%black%%black%%black%%black%%white%%white%%white%%white%
 ping 127.0.0.1 -n 3 >nul
 :skipLogo
