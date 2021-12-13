@@ -62,11 +62,11 @@ call :getinput
 cls
 echo !esc![10;1H
 if "!input!" == "d" cls && goto detailsMenuInit
-if "!menuPosition!" == "1" if "!input!" == "3" bitsadmin /transfer myDownloadJob /download /priority normal https://raw.githubusercontent.com/Maxwell-Fisher/Scraps/main/Tetris.bat %cd%\tmp.bat >nul && cmd /c start /wait %cd%\tmp.bat && del %cd%\tmp.bat
-if "!menuPosition!" == "2" if "!input!" == "3" bitsadmin /transfer myDownloadJob /download /priority normal https://raw.githubusercontent.com/Maxwell-Fisher/batch-magic/main/Rickroll.bat %cd%\tmp.bat >nul && cmd /c start /wait %cd%\tmp.bat && del %cd%\tmp.bat
-if "!menuPosition!" == "3" if "!input!" == "3" bitsadmin /transfer myDownloadJob /download /priority normal https://raw.githubusercontent.com/Maxwell-Fisher/batch-magic/main/memoryCorruption.bat %cd%\tmp.bat >nul && cmd /c start /wait %cd%\tmp.bat && del %cd%\tmp.bat
-if "!menuPosition!" == "4" if "!input!" == "3" bitsadmin /transfer myDownloadJob /download /priority normal https://raw.githubusercontent.com/Maxwell-Fisher/Square-Game/main/Square_Game.bat %cd%\tmp.bat >nul && cmd /c start /wait %cd%\tmp.bat && del %cd%\tmp.bat
-if "!menuPosition!" == "5" if "!input!" == "3" bitsadmin /transfer myDownloadJob /download /priority normal https://raw.githubusercontent.com/Maxwell-Fisher/Physics_Simulator/main/Physics.bat.bat %cd%\tmp.bat >nul && cmd /c start /wait %cd%\tmp.bat && del %cd%\tmp.bat
+if "!menuPosition!" == "1" if "!input!" == "3" bitsadmin /transfer myDownloadJob /download /priority normal https://raw.githubusercontent.com/Maxwell-Fisher/Scraps/master/Tetris.bat %cd%\tmp.bat >nul && cmd /c start /wait %cd%\tmp.bat && del %cd%\tmp.bat
+if "!menuPosition!" == "2" if "!input!" == "3" bitsadmin /transfer myDownloadJob /download /priority normal https://raw.githubusercontent.com/Maxwell-Fisher/batch-magic/master/Rickroll.bat %cd%\tmp.bat >nul && cmd /c start /wait %cd%\tmp.bat && del %cd%\tmp.bat
+if "!menuPosition!" == "3" if "!input!" == "3" bitsadmin /transfer myDownloadJob /download /priority normal https://raw.githubusercontent.com/Maxwell-Fisher/batch-magic/master/memoryCorruption.bat %cd%\tmp.bat >nul && cmd /c start /wait %cd%\tmp.bat && del %cd%\tmp.bat
+if "!menuPosition!" == "4" if "!input!" == "3" bitsadmin /transfer myDownloadJob /download /priority normal https://raw.githubusercontent.com/Maxwell-Fisher/Square-Game/master/Square_Game.bat %cd%\tmp.bat >nul && cmd /c start /wait %cd%\tmp.bat && del %cd%\tmp.bat
+if "!menuPosition!" == "5" if "!input!" == "3" bitsadmin /transfer myDownloadJob /download /priority normal https://raw.githubusercontent.com/Maxwell-Fisher/Physics_Simulator/master/Physics.bat %cd%\tmp.bat >nul && cmd /c start /wait %cd%\tmp.bat && del %cd%\tmp.bat
 if "!menuPosition!" == "6" if "!input!" == "3" cls && goto detailsMenuInit
 if "!menuPosition!" == "7" if "!input!" == "3" exit
 goto mainMenu
@@ -117,6 +117,15 @@ exit /b
 call :saveMemory
 exit /b
 
+:toggleLogoVisibility
+	if "!memory:~2,1!" == "0" (
+		set "memory=!memory:~0,2!1!memory:~3,63!"
+	) else if "!memory:~2,1!" == "1" (
+		set "memory=!memory:~0,2!0!memory:~3,63!"
+	)
+call :saveMemory
+exit /b
+
 :toggleColour
 	if "!memory:~1,1!" == "0" (
 		set "memory=!memory:~0,1!1!memory:~2,63!"
@@ -147,7 +156,12 @@ echo !esc![4;4H[Rickroll          ]
 echo !esc![5;4H[Memory corruption ]
 echo !esc![6;4H[Square Game       ]
 echo !esc![7;4H[Physics Simulator ]
-echo | set /p=!esc![20;4H[Settings          ]
+echo | set /p=!esc![20;4H[Settings]
+if "!memory:~2,1!" == "1" echo | set /p=!esc![17;33HControls:
+if "!memory:~2,1!" == "1" echo | set /p=!esc![18;33H[1] moves the cursor up
+if "!memory:~2,1!" == "1" echo | set /p=!esc![19;33H[2] moves the cursor down
+if "!memory:~2,1!" == "1" echo | set /p=!esc![20;33H[3] selects the current option
+
 
 call :setColour
 echo !esc![2;57H!esc![38;5;252m!esc![48;5;88m[Exit]
@@ -194,4 +208,4 @@ if "!memory:~1,1!" == "3" echo !esc![38;5;159m!esc![48;2;53;40;121m && set curso
 exit /b
 
 :memory %= The numbers below this line are used to store settings, such as the current colour scheme =%
-10
+101
